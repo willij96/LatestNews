@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("f630f74a-cd3d-4827-834d-c0bbd5ac08b6"))
+    .ChildrenOfType("blogItem")
+    .Where(x => x.IsVisible());
+}
+<div class="row">
+	@foreach (var item in selection)
+		{
+			var thumbnail = item.Value<IPublishedContent>("thumbnailImage");
+			<div class="col-md-4">
+				<a href="@item.Url" class="featured-link"><div class="thumbnail-blog">
+					<div class="thumbnail-img" style="background-image:url('@thumbnail.Url')"></div>
+					<h5>@item.Value("pageTitle")</h5>
+				</div></a>
+			</div>
+		}
+	</div>
